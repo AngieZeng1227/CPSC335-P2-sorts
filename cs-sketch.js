@@ -22,7 +22,12 @@ function setup() // P5 Setup Fcn
     let width = sz * g_canvas.wid; // Our 'canvas' uses cells of given size, not 1x1 pixels.
     let height = sz * g_canvas.hgt;
     createCanvas(width, height); // Make a P5 canvas.
-    draw_grid(10, 50, 'white', 'white');
+    draw_grid(300, 50, 'white', 'white');
+    textSize(18);
+    text("Selection  Sort",100,32);
+    text("Gold's Poresort",400,32);
+    text("   Mergesort   ",700,32);
+    text("   QuickSort   ",1000,32);
 }
 
 
