@@ -30,6 +30,21 @@ function setup() // P5 Setup Fcn
     text("   QuickSort   ",1000,32);
 }
 
+function quickSort() {
+
+
+
+}
+
+function reset(){
+
+
+}
+
+function swap_pass(input,firstIndex, secondIndex) {
+    var temp = input[firstIndex];
+    input[firstIndex] = input[secondIndex]
+}
 
 function draw_update() // Update our display.
 {
