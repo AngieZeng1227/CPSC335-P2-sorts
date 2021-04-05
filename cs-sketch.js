@@ -15,30 +15,29 @@ var g_canvas = {
 var g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
 var g_frame_mod = 10; // Update ever 'mod' frames.
 var g_stop = 0; // Go by default.
-
+var selectSortLine = 65;
 function setup() // P5 Setup Fcn
 {
-    let selectSortLine = 65; 
+  
     let sz = g_canvas.cell_size;
     let width = sz * g_canvas.wid; // Our 'canvas' uses cells of given size, not 1x1 pixels.
     let height = sz * g_canvas.hgt;
     createCanvas(width, height); // Make a P5 canvas.
     draw_grid(300, 50, 'white', 'white');
     textSize(18);
-    text("Selection  Sort",100,32);
-    text("Gold's Poresort",400,32);
-    text("   Mergesort   ",700,32);
-    text("   QuickSort   ",1000,32);
+    text("Selection  Sort", 100, 32);
+    text("Gold's Poresort", 400, 32);
+    text("   Mergesort   ", 700, 32);
+    text("   QuickSort   ", 1000, 32);
 
     selectionsort();
-    text(selectSortArray,0,selectSortLine);
-    selectSortLine= selectSortLine+20;
+
 }
 
 
 function draw_update() // Update our display.
 {
-    console.log( "g_frame_cnt = " + g_frame_cnt );
+    console.log("g_frame_cnt = " + g_frame_cnt);
 
 }
 
@@ -50,26 +49,28 @@ function draw() // P5 Frame Re-draw Fcn, Called for Every Frame.
     }
 }
 
-function selectionsort(){ //Selection sort function
-selectSortArray= [0,5,"C",'A',6,2,'A',7,'B','C',2,'B',6,'F',0,3];
+function selectionsort() { //Selection sort function
+    selectSortArray = [0, 5, 'C', 'A', 6, 2, 'A', 7, 'B', 'C', 2, 'B', 6, 'F', 0, 3];
 
- selectSort= selectSortArray=> {
-     length = selectSortArray.length;
-    for(let i =0; i<length; i++){
-        let minValue = i;
-        
-        for(let j = i+1; j< length; j++){
-            if (selectSortArray[j]<selectSortArray[minValue])
-            minValue=j
+    selectSort = selectSortArray => {
+        length = selectSortArray.length;
+        for (let i = 0; i < length; i++) {
+            let minValue = i;
+
+            for (let j = i + 1; j < length; j++) {
+                if (selectSortArray[j] < selectSortArray[minValue])
+                    minValue = j
+            }
+            if (minValue !== i) { //swaps
+                const temp = selectSortArray[minValue];
+                selectSortArray[minValue] = selectSortArray[i];
+                selectSortArray[i] = temp
+                text(selectSortArray, 0, selectSortLine);
+                selectSortLine = selectSortLine + 20;
+            }
         }
-        if(minValue !== i){//swaps
-            const temp = selectSortArray[minValue];
-            selectSortArray[minValue]= selectSortArray[i];
-            selectSortArray[i]= temp
-        }
+        return selectSortArray;
     }
-    return selectSortArray;
-}
-const output = selectSort(selectSortArray);
-console.log(selectSortArray);
+    const output = selectSort(selectSortArray);
+    console.log(selectSortArray);
 }
