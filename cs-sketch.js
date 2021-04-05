@@ -30,6 +30,10 @@ function setup() // P5 Setup Fcn
     text("   QuickSort   ",1000,32);
 }
 
+function selectionSort() {
+
+}
+
 function quickSort() {
 
 
