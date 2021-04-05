@@ -15,54 +15,31 @@ var g_canvas = {
 var g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
 var g_frame_mod = 10; // Update ever 'mod' frames.
 var g_stop = 0; // Go by default.
-var linetext = 60;
-var SampleInput = []
 
 function setup() // P5 Setup Fcn
 {
+    let selectSortLine = 65; 
     let sz = g_canvas.cell_size;
     let width = sz * g_canvas.wid; // Our 'canvas' uses cells of given size, not 1x1 pixels.
     let height = sz * g_canvas.hgt;
     createCanvas(width, height); // Make a P5 canvas.
     draw_grid(300, 50, 'white', 'white');
     textSize(18);
-    text("Selection  Sort", 100, 32);
-    text("Gold's Poresort", 400, 32);
-    text("   Mergesort   ", 700, 32);
-    text("   QuickSort   ", 1000, 32);
-    
+    text("Selection  Sort",100,32);
+    text("Gold's Poresort",400,32);
+    text("   Mergesort   ",700,32);
+    text("   QuickSort   ",1000,32);
+
     selectionsort();
     text(selectSortArray,0,selectSortLine);
     selectSortLine= selectSortLine+20;
 }
 
-function selectionSort() {
-    
-}
 
-function quickSort() {
-
-
-
-}
-
-function reset() {
-
-
-}
-
-function swap_pass(input, firstIndex, secondIndex) {
-    var temp = input[firstIndex];
-    input[firstIndex] = input[secondIndex]
-}
-
-function draw_update() // Update our display. FOR ONE SORT. DO MULTIPLE SORT UPDATES
+function draw_update() // Update our display.
 {
-    //console.log( "g_frame_cnt = " + g_frame_cnt );
-    while (linetext < 80) {
-        linetext = linetext + 20;
-        text("   QuickSort   ", 1000, linetext);
-    }
+    console.log( "g_frame_cnt = " + g_frame_cnt );
+
 }
 
 function draw() // P5 Frame Re-draw Fcn, Called for Every Frame.
