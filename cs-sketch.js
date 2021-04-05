@@ -30,6 +30,10 @@ function setup() // P5 Setup Fcn
     text("Gold's Poresort", 400, 32);
     text("   Mergesort   ", 700, 32);
     text("   QuickSort   ", 1000, 32);
+    
+    selectionsort();
+    text(selectSortArray,0,selectSortLine);
+    selectSortLine= selectSortLine+20;
 }
 
 function selectionSort() {
@@ -67,4 +71,28 @@ function draw() // P5 Frame Re-draw Fcn, Called for Every Frame.
     if (0 == g_frame_cnt % g_frame_mod) {
         if (!g_stop) draw_update();
     }
+}
+
+function selectionsort(){ //Selection sort function
+selectSortArray= [0,5,"C",'A',6,2,'A',7,'B','C',2,'B',6,'F',0,3];
+
+ selectSort= selectSortArray=> {
+     length = selectSortArray.length;
+    for(let i =0; i<length; i++){
+        let minValue = i;
+        
+        for(let j = i+1; j< length; j++){
+            if (selectSortArray[j]<selectSortArray[minValue])
+            minValue=j
+        }
+        if(minValue !== i){//swaps
+            const temp = selectSortArray[minValue];
+            selectSortArray[minValue]= selectSortArray[i];
+            selectSortArray[i]= temp
+        }
+    }
+    return selectSortArray;
+}
+const output = selectSort(selectSortArray);
+console.log(selectSortArray);
 }
