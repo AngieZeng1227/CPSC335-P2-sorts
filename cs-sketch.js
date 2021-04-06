@@ -15,6 +15,12 @@ var g_canvas = {
 var g_frame_cnt = 0; // Setup a P5 display-frame counter, to do anim
 var g_frame_mod = 10; // Update ever 'mod' frames.
 var g_stop = 0; // Go by default.
+var A = 10;
+var B = 11;
+var C = 12;
+var D = 13;
+var E = 14;
+var F = 15;
 var selectSortLine = 65;
 function setup() // P5 Setup Fcn
 {
@@ -29,6 +35,10 @@ function setup() // P5 Setup Fcn
     text("Gold's Poresort", 400, 32);
     text("   Mergesort   ", 700, 32);
     text("   QuickSort   ", 1000, 32);
+    var mergeSortArray = [0, 5, B, 1, A , 2, 8, F, 9,2, 2, 4, 6, 1, 0, 3];
+
+    var output = mergesort(mergeSortArray);
+    text(output,620,textpos+32);
 
     selectionsort();
 
@@ -74,3 +84,41 @@ function selectionsort() { //Selection sort function
     const output = selectSort(selectSortArray);
     console.log(selectSortArray);
 }
+var textpos = 35;
+function mergesort(input){
+
+    var length = input.length;
+    if(length<2){
+      return input;
+    }
+    var middle = Math.floor(length/2);
+    var L = input.slice(0,middle);
+    var R = input.slice(middle);
+
+    return merge(mergesort(L),mergesort(R));
+
+}
+
+function merge(L,R){
+    var output = [];
+    text(L,620,textpos+32);
+    text(R,760,textpos+32);
+    while(L.length && R.length){
+      if(L[0]<=R[0]){
+        output.push(L.shift());
+      }else{
+        output.push(R.shift());
+      }
+
+
+    }
+    while(L.length)
+        output.push(L.shift());
+
+    while(R.length)
+        output.push(R.shift());
+    textpos += 32
+
+    return output;
+}
+
