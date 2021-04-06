@@ -22,9 +22,11 @@ var D = 13;
 var E = 14;
 var F = 15;
 var selectSortLine = 65;
+var quickSortLine = 65;
+var sortArray = [0, 5, 'C', 'A', 6, 2, 'A', 7, 'B', 'C', 2, 'B', 6, 'F', 0, 3];
 function setup() // P5 Setup Fcn
 {
-  
+
     let sz = g_canvas.cell_size;
     let width = sz * g_canvas.wid; // Our 'canvas' uses cells of given size, not 1x1 pixels.
     let height = sz * g_canvas.hgt;
@@ -35,13 +37,13 @@ function setup() // P5 Setup Fcn
     text("Gold's Poresort", 400, 32);
     text("   Mergesort   ", 700, 32);
     text("   QuickSort   ", 1000, 32);
-    var mergeSortArray = [0, 5, B, 1, A , 2, 8, F, 9,2, 2, 4, 6, 1, 0, 3];
+    var mergeSortArray = [0, 5, B, 1, A, 2, 8, F, 9, 2, 2, 4, 6, 1, 0, 3];
 
     var output = mergesort(mergeSortArray);
-    text(output,620,textpos+32);
+    text(output, 620, textpos + 32);
 
     selectionsort();
-
+    quicksort(0, sortArray.length-1);
 }
 
 
@@ -85,40 +87,77 @@ function selectionsort() { //Selection sort function
     console.log(selectSortArray);
 }
 var textpos = 35;
-function mergesort(input){
+
+function mergesort(input) {
 
     var length = input.length;
-    if(length<2){
-      return input;
+    if (length < 2) {
+        return input;
     }
-    var middle = Math.floor(length/2);
-    var L = input.slice(0,middle);
+    var middle = Math.floor(length / 2);
+    var L = input.slice(0, middle);
     var R = input.slice(middle);
 
-    return merge(mergesort(L),mergesort(R));
+    return merge(mergesort(L), mergesort(R));
 
 }
 
-function merge(L,R){
+function merge(L, R) {
     var output = [];
-    text(L,620,textpos+32);
-    text(R,760,textpos+32);
-    while(L.length && R.length){
-      if(L[0]<=R[0]){
-        output.push(L.shift());
-      }else{
-        output.push(R.shift());
-      }
-
+    text(L, 620, textpos + 32);
+    text(R, 760, textpos + 32);
+    while (L.length && R.length) {
+        if (L[0] <= R[0]) {
+            output.push(L.shift());
+        } else {
+            output.push(R.shift());
+        }
 
     }
-    while(L.length)
+    while (L.length)
         output.push(L.shift());
 
-    while(R.length)
+    while (R.length)
         output.push(R.shift());
     textpos += 32
 
     return output;
 }
 
+function quickSortPivot(qsortArray, left, right) {
+    //left middle element is pivot 
+    var pivot = qsortArray[Math.floor((left+right)/2)]
+    var leftTemp = left;
+    var rightTemp = right;
+    while (rightTemp > leftTemp) {
+        while (qsortArray[leftTemp]<pivot) {
+            leftTemp++;
+        }
+        while(qsortArray[rightTemp]>pivot){
+            rightTemp--; 
+        }
+        if (leftTemp <= rightTemp) {
+            var temp = qsortArray[leftTemp];
+            qsortArray[leftTemp] = qsortArray[rightTemp];
+            qsortArray[rightTemp] = temp;
+            text(sortArray, 900, quickSortLine);
+            quickSortLine = quickSortLine + 20;
+            leftTemp++;
+            rightTemp--;
+        }
+    }
+    return leftTemp;
+}
+
+function quicksort(left, right) {
+    var quickSortArray = sortArray;
+    if (quickSortArray.length >1) {
+        var pivotIndex = quickSortPivot(quickSortArray, left, right);
+        if (left < pivotIndex) {
+            quicksort(left, pivotIndex-1);
+        }
+        if (pivotIndex < right) {
+            quicksort(pivotIndex, right);
+        }
+    }
+}
